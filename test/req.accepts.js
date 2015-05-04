@@ -1,6 +1,6 @@
 
 var express = require('../')
-  , request = require('./support/http');
+  , request = require('supertest');
 
 describe('req', function(){
   describe('.accepts(type)', function(){
@@ -43,19 +43,6 @@ describe('req', function(){
     })
   })
 
-  it('should accept a comma-delimited list of types', function(done){
-    var app = express();
-
-    app.use(function(req, res, next){
-      res.end(req.accepts('json, html'));
-    });
-
-    request(app)
-    .get('/')
-    .set('Accept', 'text/html')
-    .expect('html', done);
-  })
-
   it('should accept an argument list of type names', function(done){
     var app = express();
 
@@ -69,7 +56,7 @@ describe('req', function(){
     .expect('json', done);
   })
 
-  describe('.accept(types)', function(){
+  describe('.accepts(types)', function(){
     it('should return the first when Accept is not present', function(done){
       var app = express();
 
